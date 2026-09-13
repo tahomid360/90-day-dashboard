@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>90-Day Life Management Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+        <div class="logo">
+            <span class="logo-icon">🔥</span>
+            <h2>90-DAY FORGE</h2>
+        </div>
+        <nav class="nav-links">
+            <button class="nav-btn active" data-tab="dashboard"><span>📊</span> Dashboard</button>
+            <button class="nav-btn" data-tab="today"><span>🎯</span> Daily Tasks</button>
+            <button class="nav-btn" data-tab="calendar"><span>📅</span> 90-Day Grid</button>
+            <button class="nav-btn" data-tab="analytics"><span>📈</span> Analytics</button>
+            <button class="nav-btn" data-tab="achievements"><span>🏆</span> Badges</button>
+            <button class="nav-btn" data-tab="settings"><span>⚙️</span> Settings</button>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="theme-toggle" class="icon-btn">🌙 Theme</button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- DASHBOARD TAB -->
+        <section id="tab-dashboard" class="tab-content active">
+            <div class="header-banner">
+                <div>
+                    <h1 id="dash-day-title">Day 1 / 90</h1>
+                    <p class="subtitle" id="motivation-text">"One disciplined day at a time."</p>
+                </div>
+                <div class="header-badges">
+                    <span class="badge rank-badge" id="dash-rank">🌱 Beginner</span>
+                    <span class="badge streak-badge" id="dash-streak">🔥 0 Day Streak</span>
+                </div>
+            </div>
+
+            <div class="grid-cards">
+                <div class="card stat-card">
+                    <div class="card-title">Today's Progress</div>
+                    <div class="card-value" id="dash-today-pct">0%</div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" id="dash-today-bar"></div></div>
+                    <div class="card-subtext" id="dash-today-xp">+0 XP Earned Today</div>
+                </div>
+
+                <div class="card stat-card">
+                    <div class="card-title">Level Progression</div>
+                    <div class="card-value" id="dash-level">Lvl 1</div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" id="dash-level-bar"></div></div>
+                    <div class="card-subtext" id="dash-level-xp">0 / 500 XP</div>
+                </div>
+
+                <div class="card stat-card">
+                    <div class="card-title">90-Day Journey</div>
+                    <div class="card-value" id="dash-overall-pct">0.0%</div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" id="dash-overall-bar"></div></div>
+                    <div class="card-subtext" id="dash-days-left">90 Days Remaining</div>
+                </div>
+
+                <div class="card stat-card">
+                    <div class="card-title">Salah Completion</div>
+                    <div class="card-value" id="dash-salah-pct">0/5</div>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" id="dash-salah-bar"></div></div>
+                    <div class="card-subtext">5 Daily Prayers</div>
+                </div>
+            </div>
+
+            <div class="grid-2col">
+                <div class="card">
+                    <h3>Today's Core Checklist</h3>
+                    <div id="quick-tasks-list" class="quick-checklist"></div>
+                </div>
+                <div class="card">
+                    <h3>Today's Notes & Reflection</h3>
+                    <textarea id="daily-notes" placeholder="আজ কী শিখলে? কী ভুল হলো? কালকের প্ল্যান কী..."></textarea>
+                    <button id="save-notes-btn" class="btn btn-primary btn-sm">Save Notes</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- DAILY TASKS TAB -->
+        <section id="tab-today" class="tab-content">
+            <div class="section-header">
+                <h2>Daily Goals & Timers</h2>
+                <span id="active-timer-display" class="timer-badge" style="display:none;">⏱️ Timer Running: 00:00</span>
+            </div>
+
+            <div class="tasks-grid" id="tasks-container"></div>
+
+            <div class="card salah-card">
+                <div class="salah-header">
+                    <div>
+                        <h3>🕌 Daily Salah Tracker</h3>
+                        <p class="subtitle">৫ ওয়াক্ত নামাজ পূরণ করো ও আত্মিক উন্নতি বাড়াও (+২০ XP প্রতিটি নামাজে)।</p>
+                    </div>
+                    <div class="salah-score" id="salah-score-text">0 / 5 Completed</div>
+                </div>
+                <div class="salah-grid" id="salah-container"></div>
+            </div>
+        </section>
+
+        <!-- CALENDAR TAB -->
+        <section id="tab-calendar" class="tab-content">
+            <div class="section-header">
+                <h2>90-Day Heatmap Grid</h2>
+                <div class="heatmap-legend">
+                    <span class="legend-item"><span class="color-box c-0"></span> 0-24%</span>
+                    <span class="legend-item"><span class="color-box c-25"></span> 25-49%</span>
+                    <span class="legend-item"><span class="color-box c-50"></span> 50-74%</span>
+                    <span class="legend-item"><span class="color-box c-75"></span> 75-89%</span>
+                    <span class="legend-item"><span class="color-box c-90"></span> 90-100%</span>
+                </div>
+            </div>
+            <div id="calendar-grid" class="calendar-grid"></div>
+
+            <div id="day-modal" class="modal">
+                <div class="modal-content card">
+                    <span class="close-modal">&times;</span>
+                    <h2 id="modal-day-title">Day X Details</h2>
+                    <div id="modal-day-body"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANALYTICS TAB -->
+        <section id="tab-analytics" class="tab-content">
+            <div class="section-header">
+                <h2>Analytics & Statistics</h2>
+            </div>
+            <div class="grid-cards">
+                <div class="card stat-card"><div class="card-title">Total Study</div><div class="card-value" id="an-study-hrs">0 hrs</div></div>
+                <div class="card stat-card"><div class="card-title">Total Skill Dev</div><div class="card-value" id="an-skill-hrs">0 hrs</div></div>
+                <div class="card stat-card"><div class="card-title">Total English</div><div class="card-value" id="an-eng-mins">0 mins</div></div>
+                <div class="card stat-card"><div class="card-title">Total Research</div><div class="card-value" id="an-res-mins">0 mins</div></div>
+                <div class="card stat-card"><div class="card-title">Total Self-Care</div><div class="card-value" id="an-care-mins">0 mins</div></div>
+                <div class="card stat-card"><div class="card-title">Total Salah</div><div class="card-value" id="an-salah-total">0 / 450</div></div>
+                <div class="card stat-card"><div class="card-title">Total XP</div><div class="card-value" id="an-total-xp">0 XP</div></div>
+                <div class="card stat-card"><div class="card-title">Longest Streak</div><div class="card-value" id="an-longest-streak">0 Days</div></div>
+            </div>
+
+            <div class="grid-2col" style="margin-top: 20px;">
+                <div class="card">
+                    <h3>Weekly Completion Overview</h3>
+                    <div class="simple-bar-chart" id="weekly-chart"></div>
+                </div>
+                <div class="card">
+                    <h3>Performance Highlights</h3>
+                    <p><strong>Average Daily Score:</strong> <span id="an-avg-score">0%</span></p>
+                    <p><strong>Best Day:</strong> <span id="an-best-day">None</span></p>
+                    <p><strong>Worst Day:</strong> <span id="an-worst-day">None</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACHIEVEMENTS TAB -->
+        <section id="tab-achievements" class="tab-content">
+            <div class="section-header">
+                <h2>Unlocked Badges & Milestones</h2>
+                <div id="badge-count-text" class="subtitle">0 / 0 Unlocked</div>
+            </div>
+            <div class="achievements-grid" id="achievements-container"></div>
+        </section>
+
+        <!-- SETTINGS TAB -->
+        <section id="tab-settings" class="tab-content">
+            <div class="section-header">
+                <h2>Settings & Data Management</h2>
+            </div>
+
+            <div class="card setting-group">
+                <h3>Customize Daily Targets (Minutes)</h3>
+                <div class="grid-2col">
+                    <label>Study (mins): <input type="number" id="target-study" value="420"></label>
+                    <label>Skill Dev (mins): <input type="number" id="target-skill" value="60"></label>
+                    <label>English (mins): <input type="number" id="target-english" value="30"></label>
+                    <label>Research (mins): <input type="number" id="target-research" value="30"></label>
+                    <label>Self Care (mins): <input type="number" id="target-care" value="60"></label>
+                </div>
+                <button id="save-targets-btn" class="btn btn-primary btn-sm" style="margin-top: 15px;">Save Targets</button>
+            </div>
+
+            <div class="card setting-group">
+                <h3>Backup & Restore Data</h3>
+                <div class="button-row">
+                    <button id="export-btn" class="btn btn-secondary">📥 Export Backup (JSON)</button>
+                    <button id="import-trigger-btn" class="btn btn-secondary">📤 Import Backup (JSON)</button>
+                    <input type="file" id="import-file" accept=".json" style="display: none;">
+                </div>
+            </div>
+
+            <div class="card setting-group danger-zone">
+                <h3>Danger Zone</h3>
+                <div class="button-row">
+                    <button id="reset-today-btn" class="btn btn-danger">Reset Today's Tasks</button>
+                    <button id="reset-all-btn" class="btn btn-danger">Reset ALL Data</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="toast" class="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>
